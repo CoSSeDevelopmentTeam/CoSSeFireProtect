@@ -12,7 +12,7 @@ import cn.nukkit.utils.TextFormat;
 
 public class NoExplodeNoIgnite extends PluginBase implements Listener {
 
-    private static final String prefix = TextFormat.RED + "NoExplodeNoIgnite" + TextFormat.WHITE + ">> " + TextFormat.GREEN;
+    private static final String prefix = TextFormat.GRAY + "システム>>"+ TextFormat.RED + "FireProtect" + TextFormat.GRAY + ">> " + TextFormat.WHITE;
 	
 	@Override
 	public void onEnable() {
@@ -35,7 +35,7 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 				break;
 			case FLINT_AND_STEEL:
 				event.setCancelled();
-				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの着火をキャンセルしました。\n" + TextFormat.YELLOW + event.getEntity().getName() + TextFormat.WHITE + "が火打石を使用しました。");
+				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの着火をキャンセルしました。\n - " + TextFormat.YELLOW + event.getEntity().getName() + TextFormat.WHITE + "が火打石を使用しました。");
 				break;
 		}
 	}

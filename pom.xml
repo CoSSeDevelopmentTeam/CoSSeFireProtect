@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>net.comorevi</groupId>
-  <artifactId>NoExplodeNoIgniteForNukkit</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <artifactId>CoSSeFireProtect</artifactId>
+  <version>1.2.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>NoExplodeNoIgniteForNukkit</name>
+  <name>CoSSeFireProtect</name>
   <url>http://blog.comorevi.net/plugin/</url>
 
   <repositories>
