@@ -4,11 +4,8 @@
 
   <groupId>net.comorevi</groupId>
   <artifactId>CoSSeFireProtect</artifactId>
-  <version>1.2.1-SNAPSHOT</version>
+  <version>1.3.0-SNAPSHOT</version>
   <packaging>jar</packaging>
-
-  <name>CoSSeFireProtect</name>
-  <url>http://blog.comorevi.net/plugin/</url>
 
   <repositories>
   	<repository>
