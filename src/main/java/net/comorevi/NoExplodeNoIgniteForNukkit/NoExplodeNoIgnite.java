@@ -2,6 +2,7 @@ package net.comorevi.NoExplodeNoIgniteForNukkit;
 
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockLava;
+import cn.nukkit.entity.mob.EntityCreeper;
 import cn.nukkit.event.block.BlockPlaceEvent;
 import cn.nukkit.event.block.BlockUpdateEvent;
 import cn.nukkit.event.player.PlayerBucketEmptyEvent;
@@ -23,8 +24,9 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	
 	@EventHandler
 	public void onExplode(EntityExplodeEvent event) {
+		if (event.getEntity().getName().equals("Creeper") && event.getPosition().getLevel().getName().equals("resource")) return;
 		event.setCancelled();
-		getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "エンティティの爆発をキャンセルしました。");
+		getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "爆発をキャンセルしました。\n - 座標情報: "+event.getPosition().getFloorX()+","+event.getPosition().getFloorY()+","+event.getPosition().getFloorZ()+","+event.getPosition().getLevel().getName());
 	}
 	
 	@EventHandler
