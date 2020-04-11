@@ -1,15 +1,12 @@
 package net.comorevi.NoExplodeNoIgniteForNukkit;
 
 import cn.nukkit.block.Block;
-import cn.nukkit.block.BlockLava;
-import cn.nukkit.entity.mob.EntityCreeper;
-import cn.nukkit.event.block.BlockPlaceEvent;
-import cn.nukkit.event.block.BlockUpdateEvent;
+import cn.nukkit.block.BlockID;
+import cn.nukkit.event.block.*;
 import cn.nukkit.event.player.PlayerBucketEmptyEvent;
 import cn.nukkit.plugin.PluginBase;
 import cn.nukkit.event.Listener;
 import cn.nukkit.event.EventHandler;
-import cn.nukkit.event.block.BlockIgniteEvent;
 import cn.nukkit.event.entity.EntityExplodeEvent;
 import cn.nukkit.utils.TextFormat;
 
@@ -32,10 +29,10 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	@EventHandler
 	public void onIgnite(BlockIgniteEvent event) {
 		switch (event.getCause()) {
-			case LAVA: 
 			case SPREAD:
+			case LAVA:
 				event.setCancelled();
-				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの着火をキャンセルしました。");
+				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの延焼をキャンセルしました。");
 				break;
 			case FLINT_AND_STEEL:
 				event.setCancelled();
@@ -65,12 +62,11 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	}
 
 	@EventHandler
-    public void onBlockSpread(BlockUpdateEvent event) {
-        Block block = event.getBlock();
-        if (block instanceof BlockLava) {
-            event.setCancelled();
-            getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "マグマの拡大をキャンセルしました。\n - X:" + block.x + " ,Y:" + block.y + " ,Z:" + block.z + " , Level:" + block.level.getName());
-        }
-    }
-
+	public void onLiquidFlow(LiquidFlowEvent event) {
+		if (event.getSource().getId() == BlockID.LAVA) {
+			event.setCancelled();
+			getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "マグマの拡大をキャンセルしました。\n - X:" + event.getSource().x + " ,Y:" + event.getSource().y + " ,Z:" + event.getSource().z + " , Level:" + event.getSource().level.getName());
+			event.getSource().getLevel().setBlock(event.getSource().getLocation(), Block.get(BlockID.COBBLE));
+		}
+	}
 }
