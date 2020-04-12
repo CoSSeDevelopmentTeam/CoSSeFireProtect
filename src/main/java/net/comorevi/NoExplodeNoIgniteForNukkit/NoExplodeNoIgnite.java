@@ -30,7 +30,6 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	public void onIgnite(BlockIgniteEvent event) {
 		switch (event.getCause()) {
 			case SPREAD:
-			case LAVA:
 				event.setCancelled();
 				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの延焼をキャンセルしました。");
 				break;
