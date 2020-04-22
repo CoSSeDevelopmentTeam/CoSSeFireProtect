@@ -1,4 +1,4 @@
-package net.comorevi.NoExplodeNoIgniteForNukkit;
+package net.comorevi.np.fireprotect;
 
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
@@ -10,7 +10,7 @@ import cn.nukkit.event.EventHandler;
 import cn.nukkit.event.entity.EntityExplodeEvent;
 import cn.nukkit.utils.TextFormat;
 
-public class NoExplodeNoIgnite extends PluginBase implements Listener {
+public class FireProtect extends PluginBase implements Listener {
 
     private static final String prefix = TextFormat.GRAY + "システム>>"+ TextFormat.RED + "FireProtect" + TextFormat.GRAY + ">> " + TextFormat.WHITE;
 	
@@ -23,7 +23,7 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	public void onExplode(EntityExplodeEvent event) {
 		if (event.getEntity().getName().equals("Creeper") && event.getPosition().getLevel().getName().equals("resource")) return;
 		event.setCancelled();
-		getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "爆発をキャンセルしました。\n - 座標情報: "+event.getPosition().getFloorX()+","+event.getPosition().getFloorY()+","+event.getPosition().getFloorZ()+","+event.getPosition().getLevel().getName());
+		getServer().broadcastMessage(FireProtect.prefix + "爆発をキャンセルしました。\n - 座標情報: "+event.getPosition().getFloorX()+","+event.getPosition().getFloorY()+","+event.getPosition().getFloorZ()+","+event.getPosition().getLevel().getName());
 	}
 	
 	@EventHandler
@@ -31,13 +31,13 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 		switch (event.getCause()) {
 			case SPREAD:
 			case LAVA:
+				if (!event.getBlock().getLevel().getName().equals("resource")) getServer().broadcastMessage(FireProtect.prefix + "ブロックへの着火・延焼をキャンセルしました。");
 			case LIGHTNING:
 				event.setCancelled();
-				if (!event.getBlock().getLevel().getName().equals("resource")) getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの着火・延焼をキャンセルしました。");
 				break;
 			case FLINT_AND_STEEL:
 				event.setCancelled();
-				getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "ブロックへの着火をキャンセルしました。\n - " + TextFormat.YELLOW + event.getEntity().getName() + TextFormat.WHITE + "が火打石を使用しました。");
+				getServer().broadcastMessage(FireProtect.prefix + "ブロックへの着火をキャンセルしました。\n - " + TextFormat.YELLOW + event.getEntity().getName() + TextFormat.WHITE + "が火打石を使用しました。");
 				break;
 		}
 	}
@@ -49,7 +49,7 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 			case Block.WATER:
 				if (!event.getPlayer().isOp()) {
 					event.setCancelled();
-					getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "マグマ・水ブロックの設置をキャンセルしました。\n - " + TextFormat.YELLOW + event.getPlayer().getName() + TextFormat.WHITE + "が制限されたアイテムを使用しました。");
+					getServer().broadcastMessage(FireProtect.prefix + "マグマ・水ブロックの設置をキャンセルしました。\n - " + TextFormat.YELLOW + event.getPlayer().getName() + TextFormat.WHITE + "が制限されたアイテムを使用しました。");
 				}
 		}
 	}
@@ -58,7 +58,7 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	public void onBucketEmpty(PlayerBucketEmptyEvent event) {
 		if (event.getBucket().getName().equals("Lava Bucket") && !event.getPlayer().isOp()) {
 			event.setCancelled();
-			getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "マグマは流せません。\n - " + TextFormat.YELLOW + event.getPlayer().getName() + TextFormat.WHITE + "がバケツからマグマを流そうとしました。");
+			getServer().broadcastMessage(FireProtect.prefix + "マグマは流せません。\n - " + TextFormat.YELLOW + event.getPlayer().getName() + TextFormat.WHITE + "がバケツからマグマを流そうとしました。");
 		}
 	}
 
@@ -66,7 +66,7 @@ public class NoExplodeNoIgnite extends PluginBase implements Listener {
 	public void onLiquidFlow(LiquidFlowEvent event) {
 		if (event.getSource().getId() == BlockID.LAVA) {
 			event.setCancelled();
-			getServer().broadcastMessage(NoExplodeNoIgnite.prefix + "マグマの拡大をキャンセルしました。\n - X:" + event.getSource().x + " ,Y:" + event.getSource().y + " ,Z:" + event.getSource().z + " , Level:" + event.getSource().level.getName());
+			getServer().broadcastMessage(FireProtect.prefix + "マグマの拡大をキャンセルしました。\n - X:" + event.getSource().x + " ,Y:" + event.getSource().y + " ,Z:" + event.getSource().z + " , Level:" + event.getSource().level.getName());
 			event.getSource().getLevel().setBlock(event.getSource().getLocation(), Block.get(BlockID.COBBLE));
 		}
 	}

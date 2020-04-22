@@ -1,6 +1,6 @@
 name: NoExplodeNoIgnite
-main: net.comorevi.NoExplodeNoIgniteForNukkit.NoExplodeNoIgnite
-version: 1.5.3
+main: net.comorevi.np.fireprotect.FireProtect
+version: 1.5.4
 author: popkechupki
 api: ["1.0.0"]
 description: Cancel explode, ignite and spread lava.
