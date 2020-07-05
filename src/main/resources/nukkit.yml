@@ -1,6 +1,6 @@
-name: NoExplodeNoIgnite
+name: CoSSeFireProtect
 main: net.comorevi.np.fireprotect.FireProtect
-version: 1.5.5
+version: 1.5.6
 author: popkechupki
-api: ["1.0.0"]
+api: ["1.0.11"]
 description: Cancel explode, ignite and spread lava.

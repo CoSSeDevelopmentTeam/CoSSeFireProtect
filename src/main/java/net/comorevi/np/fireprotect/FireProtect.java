@@ -2,6 +2,7 @@ package net.comorevi.np.fireprotect;
 
 import cn.nukkit.block.Block;
 import cn.nukkit.block.BlockID;
+import cn.nukkit.entity.mob.EntityCreeper;
 import cn.nukkit.event.block.*;
 import cn.nukkit.event.player.PlayerBucketEmptyEvent;
 import cn.nukkit.plugin.PluginBase;
@@ -21,7 +22,7 @@ public class FireProtect extends PluginBase implements Listener {
 	
 	@EventHandler
 	public void onExplode(EntityExplodeEvent event) {
-		if (event.getEntity().getName().equals("Creeper") && event.getPosition().getLevel().getName().equals("resource")) return;
+		if (event.getEntity().getId() == EntityCreeper.NETWORK_ID && event.getPosition().getLevel().getName().equals("resource")) return;
 		event.setCancelled();
 		getServer().broadcastMessage(FireProtect.prefix + "爆発をキャンセルしました。\n - 座標情報: "+event.getPosition().getFloorX()+","+event.getPosition().getFloorY()+","+event.getPosition().getFloorZ()+","+event.getPosition().getLevel().getName());
 	}
