@@ -66,7 +66,7 @@ public class FireProtect extends PluginBase implements Listener {
 	public void onLiquidFlow(LiquidFlowEvent event) {
 		if (event.getSource().getId() == BlockID.LAVA) {
 			event.setCancelled();
-			getServer().broadcastMessage(FireProtect.prefix + "マグマの拡大をキャンセルしました。\n - X:" + event.getSource().x + " ,Y:" + event.getSource().y + " ,Z:" + event.getSource().z + " , Level:" + event.getSource().level.getName());
+			if (!event.getBlock().getLevel().getName().equals("resource")) getServer().broadcastMessage(FireProtect.prefix + "マグマの拡大をキャンセルしました。\n - X:" + event.getSource().x + " ,Y:" + event.getSource().y + " ,Z:" + event.getSource().z + " , Level:" + event.getSource().level.getName());
 			event.getSource().getLevel().setBlock(event.getSource().getLocation(), Block.get(BlockID.COBBLE));
 		}
 	}
